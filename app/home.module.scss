@@ -1,0 +1,337 @@
+@mixin blur($value) {
+    backdrop-filter: blur($value);
+    -webkit-backdrop-filter: blur($value);
+}
+
+.wrapper {
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 50px;
+    row-gap: 20px;
+    background-image: url('../public/images/home/bg.png');
+    overflow: hidden;
+
+    @media (max-width: 1024px) {
+        padding: 0;
+        row-gap: 50px;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    z-index: 2;
+    color: #fff;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    column-gap: 10px;
+
+    @media (max-width: 1024px) {
+        padding: 20px 20px 0
+    }
+}
+
+%header-item {
+    background: rgb(255, 255, 255, 0.06);
+    border-radius: 15px;
+    border: rgb(190, 253, 255, 0.05) solid 1px;
+    @include blur(20px)
+}
+
+.header__logo {
+    @extend %header-item;
+    padding: 10px 15px;
+
+    @media (max-width: 500px) {
+        padding: 5px 10px;
+        border-radius: 7px;
+    }
+}
+
+.header__logo-img {
+    width: 250px;
+
+    @media (max-width: 1024px) {
+        width: 200px;
+    }
+
+    @media (max-width: 500px) {
+        width: 150px;
+    }
+}
+
+.header__buttons {
+    @extend %header-item;
+    display: flex;
+    padding: 15px;
+    column-gap: 15px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 100;
+    letter-spacing: 0.03cm;
+    overflow: hidden;
+    cursor: pointer;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: calc(var(--y, 0) * 1px - 100px);
+        left: calc(var(--x, 0) * 1px - 100px);
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(white, #3984ff00 80%);
+
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    &:hover::after {
+        opacity: 0.05;
+    }
+
+    img,
+    span {
+        cursor: pointer;
+        border-radius: 10px;
+        background: rgb(255, 255, 255, 0.04);
+        padding: 5px 13px;
+        position: relative;
+    }
+
+    @media (max-width: 500px) {
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 7px;
+    }
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    color: #fff;
+
+    @media (max-width: 1024px) {
+        flex-direction: column-reverse;
+    }
+}
+
+.main__left {
+    flex-basis: 57%;
+    display: flex;
+    justify-content: flex-end;
+
+    @media (max-width: 1024px) {
+        justify-content: center;
+    }
+}
+
+.main__left-character {
+    width: auto;
+    height: 50vw;
+    bottom: 0;
+    position: absolute;
+
+    @media (max-width: 1024px) {
+        position: relative;
+        height: 60vw;
+    }
+
+    @media (max-width: 500px) {
+        height: 100vw;
+    }
+}
+
+.main__right {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 120px;
+    align-items: flex-start;
+
+    @media (max-width: 1024px) {
+        position: relative;
+        row-gap: 50px;
+        padding: 50px 0;
+    }
+
+    @media (max-width: 500px) {
+        padding: unset;
+    }
+}
+
+@mixin main__right-msg($width, $left, $img-width, $right) {
+    border: rgb(255, 255, 255, 0.4) solid 1px;
+    background: rgb(130, 130, 255, 0.13);
+    @include blur(12px);
+    border-radius: 20px;
+    padding: 10px 10px 10px 20px;
+    line-height: 2.8vw;
+    position: relative;
+    z-index: 2;
+    font-weight: 100;
+    font-size: 2.2vw;
+    width: $width;
+    margin-left: $left;
+
+    img {
+        position: absolute;
+        top: -40px;
+        right: -50px;
+        width: $img-width;
+        height: auto;
+        top: -2vw;
+        right: -2.5vw;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        background: gold;
+        width: 5vw;
+        height: 5vw;
+        border-radius: 70%;
+        opacity: 0.3;
+        filter: blur(20px);
+        top: -2vw;
+        right: $right;
+    }
+
+    @media (max-width: 1024px) {
+        font-size: 4.5vw;
+        border-radius: 10px;
+        line-height: 5.5vw;
+        padding: 10px;
+
+        img {
+            top: -4vw;
+            right: -5vw;
+        }
+
+        &::before {
+            width: 11vw;
+            height: 11vw;
+            top: -5vw;
+            right: $right - 3;
+        }
+    }
+}
+
+.main__right-msg_1 {
+    @include main__right-msg(26vw, -7vw, 8vw, -1vw);
+
+    @media (max-width: 1024px) {
+        @include main__right-msg(55vw, 10vw, 16vw, -1vw)
+    }
+}
+
+.main__right-msg_2 {
+    @include main__right-msg(33vw, -1.5vw, 3.5vw, -2.5vw);
+
+    img {
+        right: -1.7vw;
+    }
+
+    @media (max-width: 1024px) {
+        @include main__right-msg(70vw, 16vw, 9vw, -1vw)
+    }
+}
+
+.main__right-msg_3 {
+    @include main__right-msg(32vw, -4.5vw, 5vw, -2vw);
+
+    @media (max-width: 1024px) {
+        @include main__right-msg(70vw, 23vw, 12vw, -1vw)
+    }
+}
+
+.main__right-msg_blur {
+    content: '';
+    position: absolute;
+    background: gold;
+    width: 100px;
+    height: 100px;
+    border-radius: 70%;
+    opacity: 0.4;
+    filter: blur(20px);
+    top: -40px;
+    right: -17px;
+}
+
+.main__right-road {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 25%;
+
+    @media (max-width: 1024px) {
+        display: none;
+    }
+}
+
+.main__right-road_mobile {
+    display: none;
+
+    @media (max-width: 1024px) {
+        display: unset;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    @media (max-width: 500px) and (min-height: 850px) {
+        height: 40vh;
+    }
+
+    @media (max-width: 500px) and (max-height: 850px) {
+        height: 120%;
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 1024px) {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 0 20px 15px 20px;
+    }
+}
+
+.footer__team {
+    color: #fff;
+    font-size: 20px;
+}
+
+.footer__links {
+    display: flex;
+    column-gap: 30px;
+
+    svg {
+        cursor: pointer;
+        width: 30px;
+        color: #d7d6d6;
+        transition: 0.2s;
+        -webkit-transition: 0.2s;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    @media (max-width: 500px) {
+        column-gap: 15px;
+
+        svg {
+            width: 17px;
+        }
+    }
+}
