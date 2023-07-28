@@ -4,10 +4,9 @@ import styles from "../../app/home.module.scss";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../public/images/logo.png";
-import { signIn, signOut } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import { SessionProvider } from "next-auth/react";
+import Link from "next/link";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
@@ -28,46 +27,49 @@ export default function Header() {
     }
 
     return () =>
-      buttonRef.current.removeEventListener("mousemove", mouseMoveEvent);
+      buttonRef.current?.removeEventListener("mousemove", mouseMoveEvent);
   }, [buttonRef]);
-
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const session = useSession();
 
-  console.log(session);
-
   return (
-    <SessionProvider>
-      <header className={styles.header}>
-        <div className={styles.header__logo}>
-          <Image
-            src={logo}
-            alt="legacy pages logo"
-            className={styles["header__logo-img"]}
-          />
-        </div>
+    <header className={styles.header}>
+      <div className={styles.header__logo}>
+        <Image
+          src={logo}
+          alt="legacy pages logo"
+          className={styles["header__logo-img"]}
+        />
+      </div>
 
-        {session?.data ? (
-          <div
-            className={`${styles.header__buttons} ${sfProLight.className}`}
-            ref={buttonRef}
-            onClick={() => signOut({ callbackUrl: "/" })}
-          >
-            Вийти з аккаунту
-          </div>
-        ) : (
-          <div
-            className={`${styles.header__buttons} ${sfProLight.className}`}
-            ref={buttonRef}
-            onClick={() => {
-              signIn("google", { callbackUrl });
-            }}
-          >
-            Увійти через Google
-          </div>
-        )}
-      </header>
-    </SessionProvider>
+      {session?.data ? (
+        <div>
+          <Link href="/main">
+            <div
+              className={`${styles.header__buttons} ${sfProLight.className}`}
+              ref={buttonRef}
+            >
+              Перейти до головної
+            </div>
+          </Link>
+        </div>
+      ) : session.status === "loading" ? (
+        <div
+          className={`${styles.header__buttons} ${sfProLight.className}`}
+          ref={buttonRef}
+        >
+          Завантаження...
+        </div>
+      ) : (
+        <div
+          className={`${styles.header__buttons} ${sfProLight.className}`}
+          ref={buttonRef}
+          onClick={() => {
+            signIn("google", { callbackUrl: "/main" });
+          }}
+        >
+          Увійти через Google
+        </div>
+      )}
+    </header>
   );
 }
