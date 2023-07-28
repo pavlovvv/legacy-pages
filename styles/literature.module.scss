@@ -1,0 +1,125 @@
+@import "../styles/main-info";
+
+$border: rgb(190, 253, 255, 0.05) solid 1px;
+
+.scroll-container {
+    @media (min-width: 1024px) {
+        max-height: 705px;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.literature {
+    background: rgb(255, 255, 255, 0.06);
+    border: $border;
+    border-radius: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+
+.literature__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    border-bottom: $border;
+    padding: 5px 10px;
+
+    div {
+        border-radius: 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 17px;
+    }
+
+    svg {
+        width: 15px;
+        margin-right: 5px;
+    }
+}
+
+.literature__main {
+    padding: 20px;
+    display: flex;
+    column-gap: 10px;
+    border-bottom: $border;
+}
+
+.literature__works {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.literature-work {
+    padding: 15px;
+    display: flex;
+    column-gap: 15px;
+    background: rgb(255, 255, 255, 0.03);
+    border: $border;
+    border-radius: 15px;
+    position: relative;
+}
+
+.literature-work__info-el {
+    margin-bottom: 10px;
+    font-size: 17px;
+
+    &:nth-child(1) {
+        color: #b9ddfa;
+        font-size: 18px;
+    }
+
+    &:nth-child(4) {
+        margin-bottom: 5px;
+    }
+}
+
+.literature-work__link {
+    padding: 2px 13px;
+    background: rgb(255, 255, 255, 0.03);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 13px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    border: rgb(190, 253, 255, 0) solid 1px;
+
+    &:hover {
+        border: rgb(255, 255, 255, 0.1) solid 1px;
+    }
+
+    &:not(:nth-last-child(1)) {
+        margin-right: 5px;
+    }
+}
+
+.literature-work__button {
+    position: absolute;
+    right: 15px;
+    background: rgb(255, 255, 255, 0.03);
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: rgb(190, 253, 255, 0.05) solid 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    svg {
+        width: 14px;
+    }
+
+    &:nth-last-child(1) {
+        right: 55px;
+    }
+}

@@ -1,4 +1,6 @@
-export const tableData: tableDataProps = {
+import { ITableData } from "../typescript/interfaces/data";
+
+export const tableData: ITableData = {
   topNumber: 4,
   easy: [
     "Ознайомтесь з будь-якою літературою",
@@ -20,13 +22,3 @@ export const tableData: tableDataProps = {
   ],
   completedHard: [2],
 };
-
-interface tableDataProps {
-  topNumber: number;
-  easy: string[];
-  completedEasy: number[];
-  medium: string[];
-  completedMedium: number[];
-  hard: string[];
-  completedHard: number[];
-}

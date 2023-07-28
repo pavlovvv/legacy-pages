@@ -19,6 +19,10 @@
     "jsx": "preserve",
     "plugins": [
       {
+        "name":"next",
+        "name": "typescript-plugin-css-modules"
+      },
+      {
         "name": "next"
       }
     ]
