@@ -1,0 +1,51 @@
+@import "main-info";
+
+$border: rgb(190, 253, 255, 0.05) solid 1px;
+
+.scroll-container {
+    @media (min-width: 1024px) {
+        max-height: 705px;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.museums {
+    background: rgb(255, 255, 255, 0.06);
+    border: $border;
+    border-radius: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+.museum {
+    padding: 20px;
+    display: flex;
+    column-gap: 15px;
+    border-bottom: $border;
+}
+
+.museum__top {
+    display: flex;
+    column-gap: 15px;
+}
+
+.museum__discription {
+    margin-top: 10px;
+    font-size: 17px;
+    max-width: 900px;
+}
+
+.museum__location {
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+.museum__galery {
+    margin-top: 10px;
+}

@@ -21,6 +21,7 @@ import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import Link from "next/link";
 import bgMain from "../../public/images/main/bg.png";
 import bgLiterature from "../../public/images/literature/bg.png";
+import bgMuseum from "../../public/images/museums/bg.png"
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -46,15 +47,15 @@ export default function RootLayout({
   const icons: IconDefinition[] = [
     faInfo,
     faBook,
-    faIdBadge,
     faMuseum,
+    faIdBadge,
     faClapperboard,
   ];
 
   const links: string[] = [
     "/main",
     "/main/literature",
-    "/main",
+    "/main/museums",
     "/main",
     "/main",
   ];
@@ -64,6 +65,7 @@ export default function RootLayout({
   useEffect(() => {
     if (pathname === "/main") setBg(bgMain);
     if (pathname === "/main/literature") setBg(bgLiterature);
+    if (pathname.includes("/museums")) setBg(bgMuseum);
   }, [pathname]);
 
   const session = useSession();

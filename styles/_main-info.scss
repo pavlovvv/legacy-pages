@@ -230,3 +230,7 @@ $special-border: rgba(190, 214, 234, 0.1) 1px solid;
         @extend %special-coins
     }
 }
+
+.width_100 {
+    width: 100%;
+}
