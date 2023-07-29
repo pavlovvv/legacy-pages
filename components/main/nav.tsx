@@ -15,12 +15,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "next-auth/react";
 import Shimmer from "../shimmer";
+import { useAppSelector } from "../../typescript/types/redux-hooks";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
 });
 
 export default function Nav() {
+
+  const coins = useAppSelector((state) => state.user.coins);
+  const levelNumber = useAppSelector((state) => state.user.level);
+
   return (
     <nav className={sfProLight.className}>
       <Shimmer nameOfClass="nav">
@@ -54,7 +59,7 @@ export default function Nav() {
             border: "rgba(200, 232, 235, 0.1) 1px solid",
           }}
         >
-          <Image src={level} width={20} alt="Legacy Page Coin" /> 1
+          <Image src={level} width={20} alt="Legacy Page Coin" /> {levelNumber}
         </div>
 
         <div
@@ -66,7 +71,7 @@ export default function Nav() {
             border: "rgba(255, 137, 215, 0.1) 1px solid",
           }}
         >
-          <Image src={coin} width={20} alt="Legacy Page Coin" /> 200
+          <Image src={coin} width={20} alt="Legacy Page Coin" /> {coins}
         </div>
         <div
           className={`${styles.outlined} ${styles.outlined_mini}`}

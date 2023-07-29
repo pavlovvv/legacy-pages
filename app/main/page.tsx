@@ -1,3 +1,4 @@
+"use client";
 import styles from "./main.module.scss";
 import localFont from "next/font/local";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -7,19 +8,24 @@ import Museum from "../../components/main/museum";
 import Gift from "../../components/main/gift";
 import DayRewards from "../../components/main/day-rewards";
 import Shimmer from "../../components/shimmer";
+import { useAppSelector } from "../../typescript/types/redux-hooks";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
 });
 
 export default function Main() {
+  const total = useAppSelector((state) => state.user.total);
+  const totalCompleted = useAppSelector((state) => state.user.totalCompleted);
+  const percentage: number = (totalCompleted / total) * 100;
+
   return (
     <section className={styles.main__info}>
       <div className={styles["main__info-top"]}>
         <h1 className={sfProLight.className}>Розстріляне відродження</h1>
         <div className={`${styles["info-progress"]} ${sfProLight.className}`}>
           <FontAwesomeIcon icon={faSpinner} />
-          Ваш прогрес: 0%
+          Ваш прогрес: {percentage}%
         </div>
       </div>
       <div className={styles["main__info-description"]}>

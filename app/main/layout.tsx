@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./main.module.scss";
+import s from "../../styles/preloader.module.scss";
 import Image from "next/image";
 import logo from "../../public/images/logo.png";
 import localFont from "next/font/local";
@@ -21,6 +22,15 @@ import Link from "next/link";
 import bgMain from "../../public/images/main/bg.png";
 import bgLiterature from "../../public/images/literature/bg.png";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../typescript/types/redux-hooks";
+import { getAuth } from "./../../redux/user-slice";
+import { useAppSelector } from "../../typescript/types/redux-hooks";
+import { CircularProgress } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Slide from "@mui/material/Slide";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
@@ -49,50 +59,99 @@ export default function RootLayout({
     "/main",
   ];
 
-  const bg = (function () {
-    if (pathname === "/main") return bgMain;
-    if (pathname === "/main/literature") return bgLiterature;
-  })();
+  const [bg, setBg] = useState(bgMain);
+
+  useEffect(() => {
+    if (pathname === "/main") setBg(bgMain);
+    if (pathname === "/main/literature") setBg(bgLiterature);
+  }, [pathname]);
+
+  const session = useSession();
+  const dispatch = useAppDispatch();
+  const isPending = useAppSelector((state) => state.user.isPending);
+  const isSnackbarOpened = useAppSelector(
+    (state) => state.user.isSnackbarOpened
+  );
+  const snackbarMessage = useAppSelector((state) => state.user.snackbarMessage);
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      if (session.data.user.email) {
+        dispatch(getAuth({ email: session.data.user.email }));
+      }
+    }
+  }, [session]);
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{ minWidth: "1550px", backgroundImage: `url(${bg?.src})` }}
-    >
-      <header className={styles.header}>
-        <div className={styles.header__logo}>
-          <Image
-            src={logo}
-            alt="legacy pages logo"
-            className={styles["header__logo-img"]}
-          />
-        </div>
-        <Shimmer>
-          <div className={`${styles.header__buttons} ${sfProLight.className}`}>
-            <span>
-              <FontAwesomeIcon icon={faThumbTack} />
-              Розстріляне відродження
-            </span>
-            <span>
-              1922-1934
-              <FontAwesomeIcon icon={faHourglass} />
-            </span>
+    <>
+      <div
+        className={styles.wrapper}
+        style={
+          !isPending
+            ? { minWidth: "1550px", backgroundImage: `url(${bg?.src})` }
+            : { display: "none" }
+        }
+      >
+        <header className={styles.header}>
+          <div className={styles.header__logo}>
+            <Image
+              src={logo}
+              alt="legacy pages logo"
+              className={styles["header__logo-img"]}
+            />
           </div>
-        </Shimmer>
-      </header>
+          <Shimmer>
+            <div
+              className={`${styles.header__buttons} ${sfProLight.className}`}
+            >
+              <span>
+                <FontAwesomeIcon icon={faThumbTack} />
+                Розстріляне відродження
+              </span>
+              <span>
+                1922-1934
+                <FontAwesomeIcon icon={faHourglass} />
+              </span>
+            </div>
+          </Shimmer>
+        </header>
 
-      <main className={styles.main}>
-        <Shimmer nameOfClass="main__nav">
-          {icons.map((el, i) => (
-            <Link key={i} className={styles["main__nav-el"]} href={links[i]}>
-              <FontAwesomeIcon key={i} icon={el} />
-            </Link>
-          ))}
-        </Shimmer>
+        <main className={styles.main}>
+          <Shimmer nameOfClass="main__nav">
+            {icons.map((el, i) => (
+              <Link key={i} className={styles["main__nav-el"]} href={links[i]}>
+                <FontAwesomeIcon key={i} icon={el} />
+              </Link>
+            ))}
+          </Shimmer>
 
-        {children}
-      </main>
-      <Nav />
-    </div>
+          {children}
+        </main>
+        <Nav />
+      </div>
+      <div
+        className={!isPending ? s.none : ""}
+        style={{ backgroundImage: `url(${bg?.src})` }}
+      >
+        <div className={s.preloader}>
+          <div className={s.preloaderitem}>
+            <CircularProgress
+              size={100}
+              sx={{ display: "block", margin: "auto", color: "#fff" }}
+            />
+          </div>
+        </div>
+      </div>
+      <Snackbar
+        open={isSnackbarOpened}
+        TransitionComponent={Slide}
+        autoHideDuration={3000}
+        color="#fff"
+      >
+        <Alert variant="filled" severity="success" sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }

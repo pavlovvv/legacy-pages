@@ -11,7 +11,7 @@ export default function CompletedContent({ data }: CompletedContentProps) {
     <td className={styles.table__content}>
       <div className={styles["table__content-inner_completed"]}>
         {data}
-        <div className={`${styles.outlined} ${styles.outlined_mini}`}>
+        <div className={`${styles.outlined} ${styles.outlined_mini}`} style={{minWidth: '70px'}}>
           <Image src={checked} width={15} alt="Legacy Page Checked" />
         </div>
       </div>

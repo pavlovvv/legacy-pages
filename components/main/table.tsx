@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { tableData } from "../../data/table-data";
 import { useRef } from "react";
 import TableContent from "./table-content";
+import { useAppSelector } from "../../typescript/types/redux-hooks";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
@@ -14,9 +15,11 @@ const sfProLight = localFont({
 export default function Table() {
   const totalNum = useRef<number[]>([]);
 
-  for (let i = 0; i < tableData.topNumber; i++) {
+  for (let i = 1; i <= tableData.topNumber; i++) {
     totalNum.current.push(i);
   }
+
+  const missions = useAppSelector((state) => state.user.missions);
 
   return (
     <table className={styles["main__info-table"]}>
@@ -39,7 +42,7 @@ export default function Table() {
                 Легкі
               </div>{" "}
               <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-                Виконано: 0 з 4
+                Виконано: {missions.easy.length} з 4
               </div>
             </div>
           </td>
@@ -49,7 +52,7 @@ export default function Table() {
                 Непрості
               </div>{" "}
               <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-                Виконано: 0 з 3
+                Виконано: {missions.medium.length} з 3
               </div>
             </div>
           </td>
@@ -60,15 +63,15 @@ export default function Table() {
                 Складні
               </div>{" "}
               <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-                Виконано: 1 з 3
+                Виконано: {missions.hard.length} з 3
               </div>
             </div>
           </td>
         </tr>
-        {totalNum.current.map((el) => {
+        {totalNum.current.map((el, i) => {
           return (
-            <tr key={el}>
-              <TableContent el={el} />
+            <tr key={i}>
+              <TableContent el={el} i={i} />
             </tr>
           );
         })}
