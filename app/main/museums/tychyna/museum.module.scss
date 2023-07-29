@@ -1,0 +1,61 @@
+@import "../../../../styles/main-info";
+
+$border: rgb(190, 253, 255, 0.05) solid 1px;
+
+.scroll-container {
+    @media (min-width: 1024px) {
+        max-height: 705px;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.museum {
+    background: rgb(255, 255, 255, 0.06);
+    border: $border;
+    border-radius: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+
+.museum__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    border-bottom: $border;
+    padding: 5px 10px;
+
+    div {
+        border-radius: 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 17px;
+    }
+
+    svg {
+        width: 15px;
+        margin-right: 5px;
+    }
+}
+
+.museum__photos {
+    display: flex;
+    padding: 20px 75px;
+    justify-content: flex-start;
+    column-gap: 60px;
+    row-gap: 30px;
+    border-bottom: $border;
+    flex-wrap: wrap;
+
+    @media (max-width: 1600px) {
+        column-gap: 50px;
+    }
+}
