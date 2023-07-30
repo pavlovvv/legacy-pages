@@ -43,19 +43,23 @@ import photo42 from "../public/images/museum/photo (42).png";
 import photo43 from "../public/images/museum/photo (43).png";
 import photo44 from "../public/images/museum/photo (44).png";
 
-import doc1 from "../public/images/museum/doc1.png"
-import doc2 from "../public/images/museum/doc2.png"
-import doc3 from "../public/images/museum/doc3.png"
-import doc4 from "../public/images/museum/doc4.png"
-import doc5 from "../public/images/museum/doc5.png"
-import doc6 from "../public/images/museum/doc6.png"
-import doc7 from "../public/images/museum/doc7.png"
+import doc1 from "../public/images/museum/doc1.png";
+import doc2 from "../public/images/museum/doc2.png";
+import doc3 from "../public/images/museum/doc3.png";
+import doc4 from "../public/images/museum/doc4.png";
+import doc5 from "../public/images/museum/doc5.png";
+import doc6 from "../public/images/museum/doc6.png";
+import doc7 from "../public/images/museum/doc7.png";
 
-import scan1 from "../public/images/museum/scan1.png"
-import scan2 from "../public/images/museum/scan2.png"
-import scan3 from "../public/images/museum/scan3.png"
-import scan4 from "../public/images/museum/scan4.png"
-import scan5 from "../public/images/museum/scan5.png"
+import scan1 from "../public/images/museum/scan1.png";
+import scan2 from "../public/images/museum/scan2.png";
+import scan3 from "../public/images/museum/scan3.png";
+import scan4 from "../public/images/museum/scan4.png";
+import scan5 from "../public/images/museum/scan5.png";
+import scan6 from "../public/images/museum/scan6.png";
+import scan7 from "../public/images/museum/scan7.png";
+import scan8 from "../public/images/museum/scan8.png";
+import scan9 from "../public/images/museum/scan9.png";
 
 export const photoData = [
   photo1,
@@ -104,20 +108,16 @@ export const photoData = [
   photo44,
 ];
 
-export const docData = [
-    doc1,
-    doc2,
-    doc3,
-    doc4,
-    doc5,
-    doc6,
-    doc7
-];
-  
+export const docData = [doc1, doc2, doc3, doc4, doc5, doc6, doc7];
+
 export const scanData = [
-    scan1,
-    scan2,
-    scan3,
-    scan4,
-    scan5
+  scan1,
+  scan2,
+  scan3,
+  scan4,
+  scan5,
+  scan6,
+  scan7,
+  scan8,
+  scan9,
 ];

@@ -41,7 +41,7 @@ export default function Gift() {
       </div>
       <div className={`${styles.special__bottom} ${sfProLight.className}`}>
         <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <Image src={box} alt="legacy pages box" width={15} /> 1
+          <Image src={box} alt="legacy pages box" width={15} /> 0
         </div>
       </div>
     </div>

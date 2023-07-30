@@ -4,6 +4,7 @@ import coin from "../../public/images/coin.png";
 import localFont from "next/font/local";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
@@ -32,11 +33,13 @@ export default function Museum() {
         </p>
       </div>
       <div className={`${styles.special__bottom} ${sfProLight.className}`}>
+        <Link href="/main/museums/tychyna" style={{zIndex: 1}}>
         <span className={`${styles.outlined} ${styles.outlined_mini}`}>
           Перейти
         </span>
+        </Link>
         <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <Image src={coin} width={15} alt="Legacy Page Coin" /> 20
+          <Image src={coin} width={15} alt="Legacy Page Coin" /> 5
         </div>
       </div>
     </div>

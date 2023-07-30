@@ -51,11 +51,52 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     padding: 20px 75px;
     justify-content: flex-start;
     column-gap: 60px;
-    row-gap: 30px;
+    row-gap: 20px;
     border-bottom: $border;
     flex-wrap: wrap;
 
     @media (max-width: 1600px) {
         column-gap: 50px;
     }
+}
+
+.museum__scan {
+    min-height: 541px;
+
+    div {
+        canvas {
+            margin-left: 200px;
+        }
+    }
+}
+
+.scan_description {
+    position: absolute;
+    left: 700px;
+    top: 250px;
+    font-size: 18px;
+    max-width: 450px;
+}
+
+%scan__button {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+
+    svg {
+        width: 40px;
+        height: auto;
+    }
+}
+
+.scan__button-left {
+    @extend %scan__button;
+
+    left: 325px;
+}
+
+.scan__button-right {
+    @extend %scan__button;
+
+    left: 1150px;
 }

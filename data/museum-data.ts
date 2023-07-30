@@ -1,26 +1,26 @@
-import banner2 from "../public/images/museums/banner1.png";
-import banner1 from "../public/images/museums/banner2.png";
+import banner1 from "../public/images/museums/banner1.png";
+import banner2 from "../public/images/museums/banner2.png";
 import banner3 from "../public/images/museums/banner3.png";
 import banner4 from "../public/images/museums/banner4.png";
 import banner5 from "../public/images/museums/banner5.png";
 
 export const museumsData = [
   {
-    name: "Літературно-меморіальний музей-квартира П. Г. Тичини",
-    img: banner1,
-    mapLink: "https://goo.gl/maps/6rYZdGZUvvXxoz3SA",
-    description:
-      "Квартира №3 по вулиці Рєпіна, 5 у повоєнному Києві була відома серед української інтелігенції та творчої молоді завдяки її господарю – Павлу Григоровичу Тичині. Ці 5 кімнат були свідками творчих шукань, поетичних злетів та переживань поета протягом більш ніж двох десятків років (1944 – 1967)",
-    location: "Терещенківська 5, м.Київ",
-    galeryLink: "/main/museums/tychyna",
-  },
-  {
     name: "Пісківський історико-меморіальний музей Павла Тичини",
-    img: banner2,
+    img: banner1,
     mapLink: "https://goo.gl/maps/ao5wUn1LkgxGpHHJA",
     description:
       "У травні 1981 з нагоди відзнення 90-річчя з дня народження Павла Тичини відкрили відбудовану родинну хату поета, відтворену за кресленнями родича Тичини — архітектора Андрія Ноздріна та спогадами сестри поета Оксани Григорівни. Справжня хата Тичини була спалена під час каральної операції за дії партизанів в 1942.",
     location: "с. Піски (Чернігівська обл.)",
+    galeryLink: "/main/museums/tychyna",
+  },
+  {
+    name: "Літературно-меморіальний музей-квартира П. Г. Тичини",
+    img: banner2,
+    mapLink: "https://goo.gl/maps/6rYZdGZUvvXxoz3SA",
+    description:
+      "Квартира №3 по вулиці Рєпіна, 5 у повоєнному Києві була відома серед української інтелігенції та творчої молоді завдяки її господарю – Павлу Григоровичу Тичині. Ці 5 кімнат були свідками творчих шукань, поетичних злетів та переживань поета протягом більш ніж двох десятків років (1944 – 1967)",
+    location: "Терещенківська 5, м.Київ",
     galeryLink: "/main/museums",
   },
   {

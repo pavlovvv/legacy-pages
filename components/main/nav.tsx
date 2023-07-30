@@ -16,39 +16,42 @@ import {
 import { signOut } from "next-auth/react";
 import Shimmer from "../shimmer";
 import { useAppSelector } from "../../typescript/types/redux-hooks";
+import Link from "next/link";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
 });
 
 export default function Nav() {
-
   const coins = useAppSelector((state) => state.user.coins);
   const levelNumber = useAppSelector((state) => state.user.level);
+  const items = [
+    { name: "Головна", icon: faHouse, link: "/main" },
+    {
+      name: "Календар",
+      icon: faCalendar,
+      link: "/main/literature/in-development",
+    },
+    {
+      name: "Рейтинг",
+      icon: faShieldCat,
+      link: "/main/literature/in-development",
+    },
+    { name: "Магазин", icon: faStore, link: "/main/literature/in-development" },
+    { name: "Профіль", icon: faUser, link: "/main/literature/in-development" },
+  ];
 
   return (
     <nav className={sfProLight.className}>
       <Shimmer nameOfClass="nav">
-        <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <FontAwesomeIcon icon={faHouse} />
-          Головна
-        </div>
-        <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <FontAwesomeIcon icon={faCalendar} />
-          Календар
-        </div>
-        <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <FontAwesomeIcon icon={faShieldCat} />
-          Рейтинг
-        </div>
-        <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <FontAwesomeIcon icon={faStore} />
-          Магазин
-        </div>
-        <div className={`${styles.outlined} ${styles.outlined_mini}`}>
-          <FontAwesomeIcon icon={faUser} />
-          Профіль
-        </div>
+        {items.map((item) => (
+          <Link key={item.name} href={item.link} style={{ zIndex: 1 }}>
+            <div className={`${styles.outlined} ${styles.outlined_mini}`}>
+              <FontAwesomeIcon icon={item.icon} />
+              {item.name}
+            </div>
+          </Link>
+        ))}
 
         <div
           className={`${styles.outlined} ${styles.outlined_mini}`}

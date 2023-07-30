@@ -56,15 +56,15 @@ export default function RootLayout({
     "/main",
     "/main/literature",
     "/main/museums",
-    "/main",
-    "/main",
+    "/main/literature/in-development",
+    "/main/literature/in-development",
   ];
 
   const [bg, setBg] = useState(bgMain);
 
   useEffect(() => {
     if (pathname === "/main") setBg(bgMain);
-    if (pathname === "/main/literature") setBg(bgLiterature);
+    if (pathname.includes("/literature")) setBg(bgLiterature);
     if (pathname.includes("/museums")) setBg(bgMuseum);
   }, [pathname]);
 
