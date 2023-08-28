@@ -16,10 +16,9 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     padding: 30px 50px;
     row-gap: 20px;
     overflow: hidden;
-    min-width: 1400px;
 
     @media (max-width: 1024px) {
-        padding: 15px;
+        padding: 10px 5px;
     }
 }
 
@@ -33,13 +32,19 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     flex-wrap: wrap;
     row-gap: 15px;
     column-gap: 10px;
+
+    @media (max-width: 768px) {
+        div:nth-child(2) {
+            flex: 1 1 auto;
+        }
+    }
 }
 
 %header-item {
     background: rgb(255, 255, 255, 0.06);
     border-radius: 15px;
     border: $border;
-    @include blur(20px)
+    @include blur(20px);
 }
 
 .header__logo {
@@ -48,7 +53,7 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
 
     @media (max-width: 500px) {
         padding: 5px 10px;
-        border-radius: 7px;
+        border-radius: 7px
     }
 }
 
@@ -85,9 +90,26 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
         column-gap: 5px;
         align-items: center;
 
+        @media (max-width: 600px) {
+            padding: 3px 10px;
+            font-size: 4vw;
+            white-space: nowrap;
+            border-radius: 7px;
+        }
+
         svg {
             width: 13px;
+
+            @media (max-width: 600px) {
+                width: 2vw;
+            }
         }
+    }
+
+    @media (max-width: 768px) {
+        padding: 15px 5px;
+        justify-content: space-around;
+        border-radius: 7px;
     }
 }
 
@@ -98,6 +120,10 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     border: $border;
     border-left: unset;
     border-radius: 15px;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
 }
 
 .main__nav {
@@ -112,6 +138,11 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     border: $border;
     border-radius: 0 15px 15px 0;
     border-radius: 15px;
+
+    @media (max-width: 1024px) {
+        flex-direction: row;
+        width: 100% !important;
+    }
 }
 
 %menu-item {
@@ -148,8 +179,26 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     @extend %menu-item;
 
     svg {
-        width: 30px;
         height: 30px;
+
+        @media (max-width: 1024px) {
+            height: 4vw;
+        }
+
+        @media (max-width: 500px) {
+            height: 5vw;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        height: 10vw;
+        width: 10vw;
+    }
+
+    @media (max-width: 500px) {
+        height: 15vw;
+        width: 15vw;
+        border-radius: 7px;
     }
 }
 
@@ -169,6 +218,12 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
     margin-left: auto;
     margin-right: auto;
 
+    @media (max-width: 1024px) {
+        min-height: 60px;
+        padding: 5px;
+        column-gap: 10px;
+    }
+
     .outlined {
         border-radius: 10px;
         font-size: 20px;
@@ -178,8 +233,17 @@ $border: rgb(190, 253, 255, 0.05) solid 1px;
 
         @extend %menu-item;
 
+        @media (max-width: 1024px) {
+            font-size: 15px;
+            padding: 5px 15px;
+        }
+
         svg {
             width: 15px;
+
+            @media (max-width: 1024px) {
+                width: 15px;
+            }
         }
     }
 }

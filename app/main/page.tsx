@@ -9,6 +9,8 @@ import Gift from "../../components/main/gift";
 import DayRewards from "../../components/main/day-rewards";
 import Shimmer from "../../components/shimmer";
 import { useAppSelector } from "../../typescript/types/redux-hooks";
+import { useMediaQuery } from "@mui/material";
+import MobileTable from "../../components/main/mobile-table";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
@@ -18,6 +20,7 @@ export default function Main() {
   const total = useAppSelector((state) => state.user.total);
   const totalCompleted = useAppSelector((state) => state.user.totalCompleted);
   const percentage: number = (totalCompleted / total) * 100;
+  const min650 = useMediaQuery("(min-width:651px)");
 
   return (
     <section className={styles.main__info}>
@@ -36,9 +39,14 @@ export default function Main() {
           впливу інших культур.
         </h2>
       </div>
-      <Shimmer>
-        <Table />
-      </Shimmer>
+
+      {min650 ? (
+        <Shimmer>
+          <Table />
+        </Shimmer>
+      ) : (
+        <MobileTable />
+      )}
 
       <div className={styles["main__info-bottom"]}>
         <Shimmer>

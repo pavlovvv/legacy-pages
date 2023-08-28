@@ -1,0 +1,59 @@
+.popover {
+    color: #fff;
+}
+
+.popover-paper {
+    background: transparent;
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.popover__button {
+    margin-left: auto;
+    display: block;
+    margin-right: 15px;
+
+    svg {
+        width: 25px;
+        height: 25px;
+        color: white;
+    }
+}
+
+.popover__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.popover__icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 230px;
+}
+
+.popover__icon {
+    cursor: pointer;
+    padding: 10px 20px;
+    background: rgb(255, 255, 255, 0.06);
+    border-radius: 7px;
+
+    svg {
+        width: 30px;
+        height: 30px;
+        color: #fff;
+    }
+}
+
+.popover__icon-coin {
+    color: #ff89d7;
+    background: linear-gradient(111deg, rgba(2,0,36,0) 0%, rgba(234,136,222,0.2049194677871149) 100%);
+    border: rgba(255, 137, 215, 0.1) 1px solid;
+    padding: 3px 7px;
+    border-radius: 7px;
+    font-size: 17px;
+}
