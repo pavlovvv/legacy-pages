@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./main.module.scss";
-import s from "../../styles/preloader.module.scss";
 import Image from "next/image";
 import logo from "../../public/images/logo.png";
 import localFont from "next/font/local";
@@ -14,21 +13,15 @@ import bgMain from "../../public/images/main/bg.png";
 import bgLiterature from "../../public/images/literature/bg.png";
 import bgMuseum from "../../public/images/museums/bg.png";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../typescript/types/redux-hooks";
-import { getAuth } from "./../../redux/user-slice";
+import { setAuthData } from "./../../redux/user-slice";
 import { useAppSelector } from "../../typescript/types/redux-hooks";
-import {
-  CircularProgress,
-  useMediaQuery,
-  Snackbar,
-  Alert,
-  Slide,
-  Popover,
-} from "@mui/material";
+import { useMediaQuery, Snackbar, Alert, Slide } from "@mui/material";
 import { navIcons, navLinks } from "../../data/nav-data";
 import NavPopover from "../../components/main/popover";
+import { useUserData } from "../../components/Providers";
+import { IUserState } from "../../typescript/interfaces/data";
 
 const sfProLight = localFont({
   src: "../../public/fonts/SFProDisplay-Light.ttf",
@@ -40,42 +33,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
+  const data = useUserData();
   const [bg, setBg] = useState(bgMain);
-
-  useEffect(() => {
-    if (pathname === "/main") setBg(bgMain);
-    if (pathname.includes("/literature")) setBg(bgLiterature);
-    if (pathname.includes("/museums")) setBg(bgMuseum);
-  }, [pathname]);
-
-  const session = useSession();
   const dispatch = useAppDispatch();
-  const isPending = useAppSelector((state) => state.user.isPending);
   const isSnackbarOpened = useAppSelector(
     (state) => state.user.isSnackbarOpened
   );
   const snackbarMessage = useAppSelector((state) => state.user.snackbarMessage);
-
   const min650 = useMediaQuery("(min-width:651px)");
+  const isLoaded = useAppSelector((state) => state.user.isLoaded);
 
   useEffect(() => {
-    if (session.status === "authenticated") {
-      if (session.data.user.email) {
-        dispatch(getAuth({ email: session.data.user.email }));
-      }
-    }
-  }, [session]);
-
+    if (!isLoaded) dispatch(setAuthData(data.user as IUserState));
+    if (pathname === "/main") setBg(bgMain);
+    if (pathname.includes("/literature")) setBg(bgLiterature);
+    if (pathname.includes("/museums")) setBg(bgMuseum);
+  }, [pathname, isLoaded]);
   return (
     <>
       <div
         className={styles.wrapper}
-        style={
-          !isPending
-            ? { backgroundImage: `url(${bg?.src})` }
-            : { display: "none" }
-        }
+        style={{ backgroundImage: `url(${bg?.src})` }}
       >
         <header className={styles.header}>
           <div className={styles.header__logo}>
@@ -119,19 +97,6 @@ export default function RootLayout({
         </main>
 
         {min650 && <Nav />}
-      </div>
-      <div
-        className={!isPending ? s.none : ""}
-        style={{ backgroundImage: `url(${bg?.src})` }}
-      >
-        <div className={s.preloader}>
-          <div className={s.preloaderitem}>
-            <CircularProgress
-              size={100}
-              sx={{ display: "block", margin: "auto", color: "#fff" }}
-            />
-          </div>
-        </div>
       </div>
       <Snackbar
         open={isSnackbarOpened}

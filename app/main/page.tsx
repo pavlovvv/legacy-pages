@@ -9,7 +9,6 @@ import Gift from "../../components/main/gift";
 import DayRewards from "../../components/main/day-rewards";
 import Shimmer from "../../components/shimmer";
 import { useAppSelector } from "../../typescript/types/redux-hooks";
-import { useMediaQuery } from "@mui/material";
 import MobileTable from "../../components/main/mobile-table";
 
 const sfProLight = localFont({
@@ -20,7 +19,6 @@ export default function Main() {
   const total = useAppSelector((state) => state.user.total);
   const totalCompleted = useAppSelector((state) => state.user.totalCompleted);
   const percentage: number = (totalCompleted / total) * 100;
-  const min650 = useMediaQuery("(min-width:651px)");
 
   return (
     <section className={styles.main__info}>
@@ -40,7 +38,7 @@ export default function Main() {
         </h2>
       </div>
 
-      {min650 ? (
+      {window?.innerWidth > 650 ? (
         <Shimmer>
           <Table />
         </Shimmer>

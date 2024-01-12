@@ -2,9 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "./store";
 import axios from "axios";
 import { IUserState } from "../typescript/interfaces/data";
-import { IUserGetState } from "./../typescript/interfaces/data";
 
-const instance = axios.create({
+export const apiInstance = axios.create({
   withCredentials: true,
   baseURL: "https://rich-sprite-352923.uc.r.appspot.com/",
   headers: {
@@ -12,47 +11,33 @@ const instance = axios.create({
   },
 });
 
-export const getAuth = createAsyncThunk<
-  object,
-  { email: string },
-  { dispatch: AppDispatch; getState: () => IUserGetState }
->("user/setAuth", async function ({ email }, { dispatch, getState }) {
-  const state: any = getState();
-  try {
-    if (!state.user.isLoaded) {
-      dispatch(setPending(true));
-      const response = await instance.post(`auth/get`, {
-        email,
-      });
-      dispatch(setAuthData(response.data.data));
-
-      dispatch(setPending(false));
-      dispatch(setLoaded(true));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 export const addCoins = createAsyncThunk<
   object,
   { email: string; type: string; number: number },
   { dispatch: AppDispatch }
->("user/setAuth", async function ({ email, type, number }, { dispatch }) {
-  try {
-    const response = await instance.post(`auth/addCoins`, {
-      email,
-      type,
-      number,
-    });
-    dispatch(setAuthData(response.data.data));
-  } catch (error) {
-    console.log(error);
+>(
+  "user/setAuth",
+  async function ({ email, type, number }, { dispatch, getState }) {
+    const state: any = getState();
+    try {
+      if (!state.user.isPending) {
+        dispatch(setPending(true));
+        const response = await apiInstance.post(`auth/addCoins`, {
+          email,
+          type,
+          number,
+        });
+        dispatch(setAuthData(response.data.data));
+        dispatch(setPending(false));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 const initialState: IUserState = {
-  isPending: true,
+  isPending: false,
   isLoaded: false,
   _id: "",
   email: "",
@@ -83,14 +68,11 @@ const userSlice = createSlice({
       state.total = action.payload.total;
       state.totalCompleted = action.payload.totalCompleted;
       state.missions = action.payload.missions;
+      state.isLoaded = true;
     },
 
     setPending(state, action: PayloadAction<boolean>) {
       state.isPending = action.payload;
-    },
-
-    setLoaded(state, action: PayloadAction<boolean>) {
-      state.isLoaded = action.payload;
     },
 
     setSnackbar(
@@ -106,7 +88,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setAuthData, setPending, setLoaded, setSnackbar } =
-  userSlice.actions;
+export const { setAuthData, setPending, setSnackbar } = userSlice.actions;
 
 export default userSlice.reducer;
